@@ -33,5 +33,10 @@ dependencies {
 4. create a MainActivity class and have a login, status and logout button 
 5. Add Forgerock Login , Logout Listener for the buttons
 6. Create a Dialog Fragment with username, password, cancel, next button   
-6. On click of Login button, Invoke the DialogFragment to display username/password dialog , which will give the response of the tree created in the access management
-7. Add the Listener for the next button on the Dialog fragment which will take the input from username and password field
+6. On click of Login button, Invoke the DialogFragment from success of Journey/tree callback to display username/password dialog
+8. Add the Listener for the next button on the Dialog fragment which will take the input from username and password field and execute the three step login process
+      1. You will receive a SSO token or tokenId from the authentication tree response
+      2. Use that SSO token and PKCE you will get the redirect URI and authcode 
+      3. Final step is to get the oauth tokens
+9. update the Login logout status in Main activity once you received the access token, refresh token , idToken
+10. Get the User Info in a different Fragment screen
