@@ -43,4 +43,15 @@ dependencies {
 10. Get the User Info in a different Fragment screen
 ## Centralized Login
 11. create a build variant to run two different product flavours in build.gradle, so that you can use the same code to run centralized and embedded login
-12.
+12. Add the URI scheme for the app for centralize login
+13. Add the openId auth dependency
+```
+dependencies {
+    implementation 'net.openid:appauth:0.7.1'
+    }
+```
+14. make sure your gradle properties has 
+```
+android.useAndroidX=true
+android.enableJetifier=true
+```
