@@ -30,3 +30,5 @@ dependencies {
 ```
    FRAuth.start(this)
 ```
+4. create a MainActivity class and have a login, status and logout button 
+5. Add Forgerock Login , Logout Listener for the buttons
