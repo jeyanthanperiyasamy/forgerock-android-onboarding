@@ -16,6 +16,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions += "version"
+    productFlavors {
+        prodEmbedded {
+            dimension "version"
+            buildConfigField 'Boolean', 'embeddedLogin', 'true'
+        }
+        prodCentral {
+            dimension "version"
+            buildConfigField 'Boolean', 'embeddedLogin', 'false'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

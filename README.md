@@ -30,6 +30,7 @@ dependencies {
 ```
    FRAuth.start(this)
 ```
+## Embedded Login
 4. create a MainActivity class and have a login, status and logout button 
 5. Add Forgerock Login , Logout Listener for the buttons
 6. Create a Dialog Fragment with username, password, cancel, next button   
@@ -40,3 +41,6 @@ dependencies {
       3. Final step is to get the oauth tokens
 9. update the Login logout status in Main activity once you received the access token, refresh token , idToken
 10. Get the User Info in a different Fragment screen
+## Centralized Login
+11. create a build variant to run two different product flavours in build.gradle, so that you can use the same code to run centralized and embedded login
+12.
