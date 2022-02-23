@@ -26,3 +26,7 @@ dependencies {
     <!-- AM Tree Details -->
     <string name="forgerock_auth_service" translatable="false">jeySdkAuthenticationTree</string>
 ```
+3. Created the Application class and start the Forgerock authentication
+```
+   FRAuth.start(this)
+```
