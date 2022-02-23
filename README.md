@@ -32,3 +32,6 @@ dependencies {
 ```
 4. create a MainActivity class and have a login, status and logout button 
 5. Add Forgerock Login , Logout Listener for the buttons
+6. Create a Dialog Fragment with username, password, cancel, next button   
+6. On click of Login button, Invoke the DialogFragment to display username/password dialog , which will give the response of the tree created in the access management
+7. Add the Listener for the next button on the Dialog fragment which will take the input from username and password field

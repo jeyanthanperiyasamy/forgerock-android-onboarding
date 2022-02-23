@@ -45,6 +45,7 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser> {
     }
 
     override fun onSuccess(result: FRUser?) {
+
     }
 
     override fun onException(e: Exception?) {
@@ -52,7 +53,8 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser> {
     }
 
     override fun onCallbackReceived(node: Node?) {
-        Logger.debug(classNameTag,"i am here")
+        val fragment: NodeDialogFragment = NodeDialogFragment.newInstance(node)
+        fragment.show(supportFragmentManager, NodeDialogFragment::class.java.name)
     }
 }
 
