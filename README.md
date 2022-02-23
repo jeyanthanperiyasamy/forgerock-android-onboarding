@@ -55,3 +55,5 @@ dependencies {
 android.useAndroidX=true
 android.enableJetifier=true
 ```
+15. Add queries and RedirectUriReceiverActivity to open the login in browser
+16. on click of login buton now invoke the FRUser.browser().appAuthConfigurer()

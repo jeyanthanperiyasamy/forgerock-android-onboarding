@@ -5,7 +5,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
+import net.openid.appauth.AuthorizationRequest
 import org.forgerock.android.auth.*
+import org.forgerock.android.auth.BuildConfig
 
 interface ActivityListener {
     fun logout()
@@ -24,12 +28,41 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
         setContentView(R.layout.activity_main)
         updateStatus()
         loginButton.setOnClickListener {
-            FRUser.login(applicationContext, this)
+            if(com.forgerock.android.BuildConfig.embeddedLogin) {
+                FRUser.login(applicationContext, this)
+            }
+            else {
+                centralizedLogin()
+            }
         }
         logoutButton.setOnClickListener {
             FRUser.getCurrentUser().logout()
             updateStatus()
         }
+    }
+
+    private fun centralizedLogin() {
+        FRUser.browser().appAuthConfigurer()
+            .authorizationRequest { r: AuthorizationRequest.Builder ->
+                // Add a login hint parameter about the user:
+                r.setLoginHint("demo@example.com")
+                // Request that the user re-authenticates:
+                r.setPrompt("login")
+            }
+            .customTabsIntent { t: CustomTabsIntent.Builder ->
+                // Customize the browser:
+                t.setShowTitle(true)
+                t.setToolbarColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
+            }.done()
+            .login(this, object : FRListener<FRUser?> {
+                override fun onSuccess(result: FRUser?) {
+                    Logger.debug(classNameTag, result?.accessToken?.value)
+                    getUserInfo(result)
+                }
+                override fun onException(e: java.lang.Exception) {
+                    Logger.error(classNameTag, e.message)
+                }
+            })
     }
 
 
@@ -54,6 +87,7 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
         result?.getAccessToken(object : FRListener<AccessToken> {
             override fun onSuccess(token: AccessToken) {
                 runOnUiThread {
+                    updateStatus()
                     loginButton.visibility = View.GONE
                     logoutButton.visibility = View.GONE
                     status.visibility = View.GONE
