@@ -1,9 +1,11 @@
 package com.forgerock.android
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -100,8 +102,7 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
 
 
     private fun launchUserInfoFragment(token: AccessToken, result: FRUser?) {
-        val combinedToken = "id-token -- " + token.idToken + "\n" + "refresh-token --" + token.refreshToken + "\n" + "accessToken ==" + result?.accessToken?.value
-        userInfoFragment = UserInfoFragment.newInstance(combinedToken, this@MainActivity)
+        userInfoFragment = UserInfoFragment.newInstance(result?.accessToken?.value, token.refreshToken, token.idToken, this@MainActivity)
         userInfoFragment?.let {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, it).commit()
@@ -114,6 +115,21 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
 
     override fun onException(e: Exception?) {
         Logger.error(classNameTag, e?.message, e)
+        runOnUiThread {
+            val dialogBuilder = AlertDialog.Builder(this)
+            // set message of alert dialog
+            dialogBuilder.setMessage("Invalid Login credentials")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ -> })
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("Unauthorized")
+            // show alert dialog
+            alert.show()
+        }
     }
 
     override fun onCallbackReceived(node: Node?) {
