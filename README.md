@@ -36,9 +36,9 @@ dependencies {
 6. Create a Dialog Fragment with username, password, cancel, next button   
 6. On click of Login button, Invoke the DialogFragment from success of Journey/tree callback to display username/password dialog
 8. Add the Listener for the next button on the Dialog fragment which will take the input from username and password field and execute the three step login process
-      1. You will receive a SSO token or tokenId from the authentication tree response
-      2. Use that SSO token and PKCE you will get the redirect URI and authcode 
-      3. Final step is to get the oauth tokens
+      1. You will receive a SSO token or tokenId from the authentication journey/tree response
+      2. Use that SSO token to fetch the redirect URI and authcode 
+      3. Exchange the authcode to get and oauth tokens and this is the Final step
 9. update the Login logout status in Main activity once you received the access token, refresh token , idToken
 10. Get the User Info in a different Fragment screen
 ## Centralized Login
@@ -56,4 +56,6 @@ android.useAndroidX=true
 android.enableJetifier=true
 ```
 15. Add queries and RedirectUriReceiverActivity to open the login in browser
-16. on click of login buton now invoke the FRUser.browser().appAuthConfigurer()
+16. on click of login button now invoke the FRUser.browser().appAuthConfigurer()
+17. This will open a Login page in separate browser page to Enter username and password credentials
+18. OnSuccesful Authentication

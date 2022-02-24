@@ -10,7 +10,7 @@
 
     <!-- AM Instance Details -->
     <string name="forgerock_url" translatable="false">https://openam-jey-jp0621.forgeblocks.com/am</string>
-    <string name="forgerock_cookie_name" translatable="false">iPlanetDirectoryPro</string>
+    <string name="forgerock_cookie_name" translatable="false">ff55694c448e26e</string>
     <string name="forgerock_realm" translatable="false">alpha</string>
     <integer name="forgerock_timeout" translatable="false">30</integer>
 

@@ -11,7 +11,6 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import net.openid.appauth.AuthorizationRequest
 import org.forgerock.android.auth.*
-import org.forgerock.android.auth.BuildConfig
 
 interface ActivityListener {
     fun logout()
@@ -30,7 +29,7 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
         setContentView(R.layout.activity_main)
         updateStatus()
         loginButton.setOnClickListener {
-            if(com.forgerock.android.BuildConfig.embeddedLogin) {
+            if(BuildConfig.embeddedLogin) {
                 FRUser.login(applicationContext, this)
             }
             else {
