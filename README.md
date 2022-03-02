@@ -58,4 +58,4 @@ android.enableJetifier=true
 15. Add queries and RedirectUriReceiverActivity to open the login in browser
 16. on click of login button now invoke the FRUser.browser().appAuthConfigurer()
 17. This will open a Login page in separate browser page to Enter username and password credentials
-18. OnSuccesful Authentication
+18. OnSuccesful Authentication fetch all the oauth tokens
