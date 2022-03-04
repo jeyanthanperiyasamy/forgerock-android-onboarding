@@ -119,7 +119,7 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
         runOnUiThread {
             val dialogBuilder = AlertDialog.Builder(this)
             // set message of alert dialog
-            dialogBuilder.setMessage("Invalid Login credentials")
+            dialogBuilder.setMessage("Login Failed. Retry Again")
                 // if the dialog is cancelable
                 .setCancelable(false)
                 // positive button text and action

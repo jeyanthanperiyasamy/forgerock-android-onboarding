@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="config">
+        <item>app_name:ForgeRock-Android</item>
+        <item>forgerock_oauth_client_id:false</item>
+        <item>forgerock_oauth_scope:openid profile email address phone</item>
+    </string-array>
+
     <string name="app_name">ForgeRock-Android</string>
 
     <!-- OAuth 2.0 Client Details -->

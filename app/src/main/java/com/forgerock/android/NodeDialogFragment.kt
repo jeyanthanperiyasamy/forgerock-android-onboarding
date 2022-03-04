@@ -41,9 +41,14 @@ class NodeDialogFragment: DialogFragment() {
         val choiceCallBack = node?.getCallback(ChoiceCallback::class.java)
         choiceCallBack?.let {
             val yesRadioButton: RadioButton = choiceNode.findViewById(R.id.yes_radio_button)
-            val title: AppCompatTextView = choiceNode.findViewById(R.id.title)
-            title.text = node?.getCallback(ChoiceCallback::class.java)?.prompt
             val noRadioButton: RadioButton = choiceNode.findViewById(R.id.no_radio_button)
+            noRadioButton.text = choiceCallBack.choices[1]
+            choiceCallBack.choices.takeIf { it1 -> it1.count() > 1 }.apply {
+                yesRadioButton.text = choiceCallBack.choices[0] ?: "Yes"
+                noRadioButton.text = choiceCallBack.choices[1] ?: "No"
+            }
+            val title: AppCompatTextView = choiceNode.findViewById(R.id.title)
+            title.text = choiceCallBack.prompt
             yesRadioButton.isChecked = it.defaultChoice == 0
             noRadioButton.isChecked = it.defaultChoice == 1
             yesRadioButton.setOnClickListener {
