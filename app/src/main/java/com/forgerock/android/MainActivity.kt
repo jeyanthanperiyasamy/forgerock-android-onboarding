@@ -134,15 +134,10 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
     }
 
     override fun onCallbackReceived(node: Node?) {
-        node?.callbacks?.forEach {
-            if(it.type == "ChoiceCallback") {
-                val fragment: ChoiceDialogFragment = ChoiceDialogFragment.newInstance(node)
-                fragment.show(supportFragmentManager, ChoiceDialogFragment::class.java.name)
-            } else {
-                val fragment: NodeDialogFragment = NodeDialogFragment.newInstance(node)
-                fragment.show(supportFragmentManager, NodeDialogFragment::class.java.name)
-            }
-        }
+
+        val fragment: NodeDialogFragment = NodeDialogFragment.newInstance(node)
+        fragment.show(supportFragmentManager, NodeDialogFragment::class.java.name)
+
     }
 
     override fun logout() {

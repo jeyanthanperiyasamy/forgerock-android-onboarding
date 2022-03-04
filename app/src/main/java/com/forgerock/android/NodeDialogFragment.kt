@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.RadioButton
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.forgerock.android.auth.Node
+import org.forgerock.android.auth.callback.ChoiceCallback
 import org.forgerock.android.auth.callback.NameCallback
 import org.forgerock.android.auth.callback.PasswordCallback
 
@@ -34,6 +37,24 @@ class NodeDialogFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         node = arguments?.getSerializable("NODE") as Node?
+        val choiceNode: View = view.findViewById(R.id.choice_node)
+        val choiceCallBack = node?.getCallback(ChoiceCallback::class.java)
+        choiceCallBack?.let {
+            val yesRadioButton: RadioButton = choiceNode.findViewById(R.id.yes_radio_button)
+            val title: AppCompatTextView = choiceNode.findViewById(R.id.title)
+            title.text = node?.getCallback(ChoiceCallback::class.java)?.prompt
+            val noRadioButton: RadioButton = choiceNode.findViewById(R.id.no_radio_button)
+            yesRadioButton.isChecked = it.defaultChoice == 0
+            noRadioButton.isChecked = it.defaultChoice == 1
+            yesRadioButton.setOnClickListener {
+                noRadioButton.isChecked = false
+                node?.getCallback(ChoiceCallback::class.java)?.setSelectedIndex(0)
+            }
+            noRadioButton.setOnClickListener {
+                yesRadioButton.isChecked = false
+                node?.getCallback(ChoiceCallback::class.java)?.setSelectedIndex(1)
+            }
+        }
         node?.callbacks?.forEach {
             when (it.type) {
                 "NameCallback" -> {
@@ -41,6 +62,9 @@ class NodeDialogFragment: DialogFragment() {
                 }
                 "PasswordCallback" -> {
                     (view.findViewById(R.id.passwordLayout) as? TextInputLayout)?.visibility = View.VISIBLE
+                }
+                "ChoiceCallback" -> {
+                    choiceNode.visibility = View.VISIBLE
                 }
             }
         }
