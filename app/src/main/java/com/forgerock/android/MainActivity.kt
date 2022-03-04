@@ -95,7 +95,9 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
                     launchUserInfoFragment(token, result)
                 }
             }
-            override fun onException(e: java.lang.Exception) {}
+            override fun onException(e: java.lang.Exception) {
+
+            }
         })
     }
 
@@ -132,8 +134,15 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
     }
 
     override fun onCallbackReceived(node: Node?) {
-        val fragment: NodeDialogFragment = NodeDialogFragment.newInstance(node)
-        fragment.show(supportFragmentManager, NodeDialogFragment::class.java.name)
+        node?.callbacks?.forEach {
+            if(it.type == "ChoiceCallback") {
+                val fragment: ChoiceDialogFragment = ChoiceDialogFragment.newInstance(node)
+                fragment.show(supportFragmentManager, ChoiceDialogFragment::class.java.name)
+            } else {
+                val fragment: NodeDialogFragment = NodeDialogFragment.newInstance(node)
+                fragment.show(supportFragmentManager, NodeDialogFragment::class.java.name)
+            }
+        }
     }
 
     override fun logout() {
@@ -144,4 +153,3 @@ class MainActivity: AppCompatActivity(), NodeListener<FRUser>, ActivityListener 
         updateStatus()
     }
 }
-
